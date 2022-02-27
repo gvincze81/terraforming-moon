@@ -35,7 +35,7 @@ resource "aws_security_group" "block_all_ingress" {
     from_port = 22
     protocol  = "TCP"
     to_port   = 22
-    cidr_blocks = ["176.63.1.54/32"]
+    cidr_blocks = ["176.63.1.54/32", "37.76.60.251/32"]
   }
 
   egress {
