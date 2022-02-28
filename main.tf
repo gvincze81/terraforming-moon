@@ -17,7 +17,7 @@ provider "aws" {
 resource "aws_instance" "app_server" {
   ami = "ami-0341aeea105412b57"
   instance_type = "t2.micro"
-  security_groups = ["block_all_ingress"]
+  security_groups = ["my-sg"]
   key_name = aws_key_pair.my-key.key_name
 
   tags = {
@@ -26,30 +26,29 @@ resource "aws_instance" "app_server" {
 
 }
 
-resource "aws_security_group" "block_all_ingress" {
-  name        = "block_all_ingress"
-  description = "Block all inbound traffic"
-#  vpc_id      = "vpc-0f68a67028bc8868c"
+#resource "aws_security_group" "my-sg" {
+  #name        = "my-sg"
+  #description = "Block all inbound traffic"
 
-  ingress {
-    from_port = 22
-    protocol  = "TCP"
-    to_port   = 22
-    cidr_blocks = ["176.63.1.54/32", "37.76.60.251/32"]
-  }
+  #ingress {
+    #from_port = 22
+    #protocol  = "TCP"
+    #to_port   = 22
+    #cidr_blocks = ["176.63.1.54/32", "37.76.60.251/32"]
+  #}
 
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
+  #egress {
+    #from_port        = 0
+    #to_port          = 0
+    #protocol         = "-1"
+    #cidr_blocks      = ["0.0.0.0/0"]
+    #ipv6_cidr_blocks = ["::/0"]
+  #}
 
-  tags = {
-    Name = "block_all_ingress"
-  }
-}
+  #tags = {
+    #Name = "my-sg"
+  #}
+#}
 
 resource "tls_private_key" "example" {
   algorithm = "RSA"
@@ -60,7 +59,7 @@ resource "aws_key_pair" "my-key" {
   key_name   = "my-key"
   public_key = tls_private_key.example.public_key_openssh
 
-  provisioner "local-exec" { # Create "myKey.pem" to your computer!!
-    command = "echo '${tls_private_key.example.private_key_pem}' > ~/.ssh/my-key.pem"
-  }
+  #provisioner "local-exec" { # Create "myKey.pem" to your computer!!
+    #command = "echo '${tls_private_key.example.private_key_pem}' > ~/.ssh/my-key.pem"
+  #}
 }
