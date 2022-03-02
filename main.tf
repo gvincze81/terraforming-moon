@@ -1,7 +1,7 @@
-terraform {
-  backend "s3" {
-    bucket = "vg-bucket"
-    key = "state"
-    region = "us-west-2"
-  }
+provider "aws" {
+  region = "us-west-2"
+}
+
+resource "aws_s3_bucket" "mars" {
+  bucket = "vg-bucket"
 }
